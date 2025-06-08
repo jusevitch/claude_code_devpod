@@ -1,0 +1,52 @@
+// For format details, see https://aka.ms/devcontainer.json.
+{
+	// CHANGE THIS NAME TO YOUR DESIRED NAME
+	"name": "DevPod Container",
+
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	// Podman should in theory work, but I wasn't able to get it running.
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+    "remoteUser": "vscode",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+        "ghcr.io/devcontainers/features/rust:1": {}, // Rust
+        "ghcr.io/devcontainers/features/python:1": {}, // Python
+        "ghcr.io/devcontainers/features/git:1": {}, // Git
+        "ghcr.io/devcontainers/features/github-cli:1": {}, // GitHub CLI
+		"ghcr.io/devcontainers/features/node:1": {}, // Node.js
+    },
+
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			"settings": {},
+			"extensions": [
+				"rust-lang.rust-analyzer",
+				"ms-python.python",
+				"charliermarsh.ruff",
+			]
+		}
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "",
+    "postCreateCommand": [
+		"curl -LsSf https://astral.sh/uv/install.sh | sh", // Install uv
+    ],
+
+	// Claude Code:
+	// 		* Once the container is launched, run `npm install -g @anthropic-ai/claude-code` to install Claude Code.
+	//			The installation is persistent. I have not yet figured out how to do this automatically--it crashes
+	//			the container creation when done within postCreateCommand.
+	//			
+	//			Official installation instructions: https://docs.anthropic.com/en/docs/claude-code/getting-started
+
+}
