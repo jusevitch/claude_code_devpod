@@ -1,6 +1,6 @@
 # Claude Code DevPod Template
 
-This file is a template for creating containers using DevPod to run Claude Code inside.
+This file is a template for running Claude Code inside Docker containers using DevPod.
 
 Claude Code is powerful. Running it unconstrained in your computer is probably a bad idea. A better idea is to use it within Docker or Podman containers to mitigate the risk of it hallucinating and causing data loss or corruption.
 
