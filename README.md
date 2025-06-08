@@ -19,11 +19,13 @@ This repository contains enough to run a fully functional (albeit minimal) DevPo
 
 To use this for your own environments:
 
+* [Install Docker](https://docs.docker.com/engine/install/)
+* [Install DevPod](https://devpod.sh/docs/getting-started/install)
 * Clone the repository
 * Edit the `.devcontainer.json` file to fit your specifications. For example,
   * You can change the base image (e.g. Debian, Fedora, etc.). The `mcr.microsoft.com` images seem to work best with fewest errors.
   * You can change the features. Add Julia, remove Python, etc.
-* Create a new Workspace using DevPod
+* [Create a new workspace](https://devpod.sh/docs/developing-in-workspaces/create-a-workspace) using DevPod
 * Launch and install Claude Code by running `npm install -g @anthropic-ai/claude-code` (this will persist in future sessions).
 * Add your code.
 * Push code to Github.
