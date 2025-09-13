@@ -1,0 +1,9 @@
+[package]
+name = "discrete_cbf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.5.47", features = ["derive"] }
+ndarray = "0.16.1"
+ndarray-npy = "0.9.1"
