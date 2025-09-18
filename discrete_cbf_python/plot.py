@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
 Plot the trajectory from the single-integrator simulation.
-Usage: python plot_trajectory.py [trajectory_file.npz]
+Usage: python plot.py [trajectory_file.npz] [--output-base output_name]
 """
 
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
+import argparse
 from pathlib import Path
 
-def plot_trajectory(filename="trajectory.npz"):
+def plot_trajectory(filename="trajectory.npz", output_base=None):
     """Load and plot the trajectory from the simulation."""
     
     # Load the data
@@ -25,12 +25,16 @@ def plot_trajectory(filename="trajectory.npz"):
         print(f"Error: Expected data not found in file. Missing: {e}")
         return
     
-    # Extract start and goal from trajectory
+    # Determine output file names
+    if output_base is None:
+        # Use input filename without extension as base
+        output_base = Path(filename).stem
+    
+    # Extract start from trajectory
     start = trajectory[0]
-    goal = trajectory[-1]  # Approximate goal as final position
     
     # Create figure with two subplots
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6), dpi=100)
     
     # Plot 1: 2D trajectory in state space
     ax1.plot(x, y, 'b-', linewidth=2, label='Trajectory', alpha=0.7)
@@ -69,7 +73,7 @@ def plot_trajectory(filename="trajectory.npz"):
     ax2.legend(loc='best')
     
     # Add statistics text box
-    stats_text = f"Simulation Statistics:\n"
+    stats_text = "Simulation Statistics:\n"
     stats_text += f"Steps: {len(x)}\n"
     stats_text += f"Start: [{start[0]:.3f}, {start[1]:.3f}]\n"
     stats_text += f"Final: [{x[-1]:.3f}, {y[-1]:.3f}]\n"
@@ -81,6 +85,24 @@ def plot_trajectory(filename="trajectory.npz"):
     
     plt.suptitle('Single-Integrator System with Proportional Control', fontsize=16, y=1.02)
     plt.tight_layout()
+    
+    # Save figures in high quality
+    png_filename = f"{output_base}.png"
+    svg_filename = f"{output_base}.svg"
+    pdf_filename = f"{output_base}.pdf"
+    
+    # Save as PNG with high DPI (300)
+    print(f"Saving high-quality PNG to '{png_filename}'...")
+    fig.savefig(png_filename, dpi=300, bbox_inches='tight', pad_inches=0.1)
+    
+    # Save as SVG (vector format)
+    print(f"Saving vector format SVG to '{svg_filename}'...")
+    fig.savefig(svg_filename, format='svg', bbox_inches='tight', pad_inches=0.1)
+    
+    # Save as PDF (vector format)
+    print(f"Saving vector format PDF to '{pdf_filename}'...")
+    fig.savefig(pdf_filename, format='pdf', bbox_inches='tight', pad_inches=0.1)
+    
     plt.show()
     
     # Print some statistics
@@ -99,9 +121,18 @@ def plot_trajectory(filename="trajectory.npz"):
         print("System appears to have converged to the goal.")
     else:
         print("System is still moving significantly.")
+    
+    print("\n=== Files Saved ===")
+    print(f"PNG: {png_filename} (300 DPI)")
+    print(f"SVG: {svg_filename} (vector format)")
+    print(f"PDF: {pdf_filename} (vector format)")
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        plot_trajectory(sys.argv[1])
-    else:
-        plot_trajectory("trajectory.npz")
+    parser = argparse.ArgumentParser(description="Plot trajectory from single-integrator simulation")
+    parser.add_argument("trajectory_file", nargs="?", default="trajectory.npz",
+                        help="Input trajectory file (default: trajectory.npz)")
+    parser.add_argument("--output-base", "-o", default=None,
+                        help="Base name for output files (default: use input filename)")
+    
+    args = parser.parse_args()
+    plot_trajectory(args.trajectory_file, args.output_base)
