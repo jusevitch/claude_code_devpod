@@ -21,6 +21,14 @@ else
     echo "uv is already installed"
 fi
 
+# Source uv environment
+export PATH="$HOME/.local/bin:$PATH"
+
+# Install Python 3.12 via uv (ensures it's available for uv projects)
+echo "Installing Python 3.12 via uv..."
+uv python install 3.12
+echo "Python 3.12 installed"
+
 # Install Claude Code
 # Using --loglevel=error to reduce output and avoid TTY issues
 if ! command -v claude &> /dev/null; then

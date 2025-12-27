@@ -4,6 +4,10 @@
     "runArgs": ["--gpus", "all"],
     "remoteUser": "vscode",
 
+    "containerEnv": {
+        "UV_PYTHON": ">=3.12"
+    },
+
     "features": {
         "ghcr.io/devcontainers/features/common-utils:2": {
             "installZsh": false,
