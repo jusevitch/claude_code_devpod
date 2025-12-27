@@ -1,7 +1,7 @@
 {
     "name": "Claude Code DevPod",
-    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-    "remoteUser": "vscode",
+    "image": "nvidia/cuda:13.0.0-devel-ubuntu22.04",
+    "runArgs": ["--gpus", "all"],
 
     "features": {
         "ghcr.io/devcontainers/features/node:1": {},
