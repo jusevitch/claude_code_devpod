@@ -1,44 +1,62 @@
 # Claude Code DevPod Template
 
-This file is a template for running Claude Code inside Docker containers using DevPod.
+Run Claude Code safely inside Docker containers using DevPod.
 
-Claude Code is powerful. Running it unconstrained in your computer is probably a bad idea. A better idea is to use it within Docker or Podman containers to mitigate the risk of it hallucinating and causing data loss or corruption.
+Claude Code is powerful. Running it unconstrained on your computer is risky. This template runs it within Docker containers to mitigate the risk of data loss or corruption from hallucinations.
 
-[DevPod](https://devpod.sh/) is an open source alternative to Codespaces. It allows you to specify a Docker (or Podman) container in a `.devcontainer.json` file, save it within a repository, then activate that repository locally within a Docker container. You can then run `claude --dangerously-skip-permissions` to your heart's content.
+[DevPod](https://devpod.sh/) is an open source alternative to GitHub Codespaces. It lets you spin up development containers from a `.devcontainer` configuration with a single command.
 
-The key advantage of DevPod is its simplicity:
+## Quick Start
 
-* `git clone` a repository with a `.devcontainer.json` file
-* Create a new workspace using the DevPod GUI (or `devpod up . --ide vscode` using the CLI)
-* Use VSCode to watch Claude happily create either works of genius or horrifying chaos within a Docker container
-* Push changes up to Github.
+1. [Install Docker](https://docs.docker.com/engine/install/)
+2. [Install DevPod](https://devpod.sh/docs/getting-started/install)
+3. Clone this repository
+4. Run: `devpod up . --ide vscode`
 
-## Instructions for use
+That's it! Claude Code is automatically installed and ready to use.
 
-This repository contains enough to run a fully functional (albeit minimal) DevPod Ubuntu environment with Rust, Python, uv, Git, the Github CLI, and Node.js (for Claude Code) preinstalled.
+## What's Included
 
-To use this for your own environments:
+- **Claude Code** - Anthropic's AI coding assistant (auto-installed)
+- **Python** + **uv** - Python with fast package management
+- **Rust** - Full Rust toolchain with rust-analyzer
+- **Node.js** - JavaScript runtime
+- **Git** + **GitHub CLI** - Version control
 
-* [Install Docker](https://docs.docker.com/engine/install/)
-* [Install DevPod](https://devpod.sh/docs/getting-started/install)
-* Clone the repository
-* Edit the `.devcontainer.json` file to fit your specifications. For example,
-  * You can change the base image (e.g. Debian, Fedora, etc.). The `mcr.microsoft.com` images seem to work best with fewest errors.
-  * You can change the features. Add Julia, remove Python, etc.
-* [Create a new workspace](https://devpod.sh/docs/developing-in-workspaces/create-a-workspace) using DevPod
-* Launch and install Claude Code by running `npm install -g @anthropic-ai/claude-code` (this will persist in future sessions).
-* Add your code.
-* Push code to Github.
+## Using Claude Code
 
-Anyone in the future who wants to reproduce your environment can simply clone it and use it to create a new DevPod workspace.
+Once the container opens in VS Code:
 
+```bash
+# Start Claude Code (recommended for containers)
+claude --dangerously-skip-permissions
 
-## Additional Resources
+# Or start with normal permissions
+claude
+```
 
-* Microsoft Docker devcontainers: https://hub.docker.com/r/microsoft/devcontainers
-* Devcontainer Features: https://containers.dev/features (e.g. Rust, Python, CUDA, etc.)
+## Customization
 
+Edit `.devcontainer/devcontainer.json` to customize your environment:
 
-## Known Issues
+- Change the base image (Debian, Fedora, etc.)
+- Add/remove language features (Julia, Go, etc.)
+- Add VS Code extensions
+- Modify the setup script in `.devcontainer/setup.sh`
 
-* It should be possible to install Claude Code automatically. I have not figured out how to do this without crashing the DevPod build process.
+See [devcontainer features](https://containers.dev/features) for available options.
+
+## How It Works
+
+The `.devcontainer/` folder contains:
+- `devcontainer.json` - Container configuration
+- `setup.sh` - Post-creation script that installs Claude Code and uv
+
+The `.claude/settings.json` file pre-configures Claude Code to bypass permission prompts (safe within containers).
+
+## Resources
+
+- [DevPod Documentation](https://devpod.sh/docs)
+- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
+- [Devcontainer Features](https://containers.dev/features)
+- [Microsoft Devcontainer Images](https://hub.docker.com/r/microsoft/devcontainers)
