@@ -6,7 +6,9 @@ Claude Code is powerful. Running it unconstrained on your computer is risky. Thi
 
 [DevPod](https://devpod.sh/) is an open source alternative to GitHub Codespaces. It lets you spin up development containers from a `.devcontainer` configuration with a single command.
 
-## Quick Start
+## Prerequisites
+
+(Skip if you've done this before)
 
 1. [Install Docker](https://docs.docker.com/engine/install/)
 2. [Install DevPod CLI](https://devpod.sh/docs/getting-started/install#install-devpod-cli)
@@ -15,8 +17,11 @@ Claude Code is powerful. Running it unconstrained on your computer is risky. Thi
 devpod provider add docker
 devpod provider use docker
 ```
-4. Clone this repository
-5. Run: `devpod up . --ide vscode`
+
+## Quick Start
+
+1. Clone this repository and `cd` into it
+2. Run `devpod up . --ide vscode`
 
 That's it! Claude Code is automatically installed and ready to use.
 
