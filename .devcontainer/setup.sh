@@ -6,6 +6,12 @@ set -e
 
 echo "=== DevPod Container Setup ==="
 
+# Source nvm environment (required because postCreateCommand runs before shell init)
+export NVM_DIR="/usr/local/share/nvm"
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+    . "$NVM_DIR/nvm.sh"
+fi
+
 # Install uv (fast Python package manager)
 if ! command -v uv &> /dev/null; then
     echo "Installing uv..."
@@ -16,7 +22,6 @@ else
 fi
 
 # Install Claude Code
-# Using --prefer-offline and --no-audit to speed up installation
 # Using --loglevel=error to reduce output and avoid TTY issues
 if ! command -v claude &> /dev/null; then
     echo "Installing Claude Code..."
