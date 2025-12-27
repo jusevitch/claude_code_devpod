@@ -10,8 +10,13 @@ Claude Code is powerful. Running it unconstrained on your computer is risky. Thi
 
 1. [Install Docker](https://docs.docker.com/engine/install/)
 2. [Install DevPod](https://devpod.sh/docs/getting-started/install)
-3. Clone this repository
-4. Run: `devpod up . --ide vscode`
+3. Add Docker to DevPod as the default provider:
+```bash
+devpod provider add docker
+devpod provider use docker
+```
+4. Clone this repository
+5. Run: `devpod up . --ide vscode`
 
 That's it! Claude Code is automatically installed and ready to use.
 
@@ -53,6 +58,11 @@ The `.devcontainer/` folder contains:
 - `setup.sh` - Post-creation script that installs Claude Code and uv
 
 The `.claude/settings.json` file pre-configures Claude Code to bypass permission prompts (safe within containers).
+
+## See Also
+
+* [Claude Code DevPod template for Python only](https://github.com/jusevitch/claude_code_python)
+* [Claude Code DevPod template for Rust only](https://github.com/jusevitch/claude_code_rust)
 
 ## Resources
 
