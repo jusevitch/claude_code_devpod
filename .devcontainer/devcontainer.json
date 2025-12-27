@@ -2,8 +2,17 @@
     "name": "Claude Code DevPod",
     "image": "nvidia/cuda:12.8.0-devel-ubuntu22.04",
     "runArgs": ["--gpus", "all"],
+    "remoteUser": "vscode",
 
     "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": false,
+            "installOhMyZsh": false,
+            "installOhMyZshConfig": false,
+            "username": "vscode",
+            "userUid": "1000",
+            "userGid": "1000"
+        },
         "ghcr.io/devcontainers/features/node:1": {},
         "ghcr.io/devcontainers/features/python:1": {},
         "ghcr.io/devcontainers/features/rust:1": {},
