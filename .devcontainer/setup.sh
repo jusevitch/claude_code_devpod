@@ -33,7 +33,7 @@ echo "Python 3.12 installed"
 # Using --loglevel=error to reduce output and avoid TTY issues
 if ! command -v claude &> /dev/null; then
     echo "Installing Claude Code..."
-    npm install -g @anthropic-ai/claude-code --loglevel=error --no-fund --no-audit
+    sudo npm install -g @anthropic-ai/claude-code --loglevel=error --no-fund --no-audit
     echo "Claude Code installed successfully"
 else
     echo "Claude Code is already installed"
