@@ -40,6 +40,12 @@ else
     echo "OpenAI Codex CLI is already installed"
 fi
 
+# Install shell aliases
+if [ -f .devcontainer/.bash_aliases ]; then
+    cp .devcontainer/.bash_aliases ~/.bash_aliases
+    echo "Shell aliases installed"
+fi
+
 echo "=== Setup Complete ==="
 echo ""
 echo "AI Coding Assistants:"
