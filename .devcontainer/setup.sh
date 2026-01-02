@@ -31,7 +31,23 @@ else
     echo "Claude Code is already installed"
 fi
 
+# Install OpenAI Codex CLI
+if ! command -v codex &> /dev/null; then
+    echo "Installing OpenAI Codex CLI..."
+    npm install -g @openai/codex --loglevel=error --no-fund --no-audit
+    echo "OpenAI Codex CLI installed successfully"
+else
+    echo "OpenAI Codex CLI is already installed"
+fi
+
+# Install shell aliases
+if [ -f .devcontainer/.bash_aliases ]; then
+    cp .devcontainer/.bash_aliases ~/.bash_aliases
+    echo "Shell aliases installed"
+fi
+
 echo "=== Setup Complete ==="
 echo ""
-echo "To start Claude Code, run: claude"
-echo "To start with all permissions (recommended in containers): claude --dangerously-skip-permissions"
+echo "AI Coding Assistants:"
+echo "  Claude Code: claude --dangerously-skip-permissions"
+echo "  Codex CLI:   codex --yolo"

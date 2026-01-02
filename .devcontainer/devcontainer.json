@@ -16,7 +16,9 @@
             "extensions": [
                 "rust-lang.rust-analyzer",
                 "ms-python.python",
-                "charliermarsh.ruff"
+                "charliermarsh.ruff",
+                "anthropic.claude-code",
+                "openai.codex"
             ]
         }
     },
