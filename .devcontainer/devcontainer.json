@@ -3,7 +3,19 @@
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
     "remoteUser": "vscode",
 
+    "containerEnv": {
+        "UV_PYTHON": ">=3.12"
+    },
+
     "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": false,
+            "installOhMyZsh": false,
+            "installOhMyZshConfig": false,
+            "username": "vscode",
+            "userUid": "1000",
+            "userGid": "1000"
+        },
         "ghcr.io/devcontainers/features/node:1": {},
         "ghcr.io/devcontainers/features/python:1": {},
         "ghcr.io/devcontainers/features/rust:1": {},
