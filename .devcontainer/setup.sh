@@ -24,14 +24,32 @@ if ! grep -q 'npm-global' "$HOME/.bashrc" 2>/dev/null; then
     echo 'export PATH="$HOME/.npm-global/bin:$PATH"' >> "$HOME/.bashrc"
 fi
 
+install_apt_package() {
+    local package_name="$1"
+    local command_name="$2"
+
+    if command -v "$command_name" &> /dev/null; then
+        echo "$package_name is already installed"
+        return
+    fi
+
+    echo "Installing $package_name..."
+    if ! sudo apt-get update; then
+        echo "apt-get update failed; retrying install with cached package indexes"
+    fi
+
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y "$package_name"
+
+    if command -v "$command_name" &> /dev/null; then
+        echo "$package_name installed successfully"
+    else
+        echo "Failed to install $package_name"
+        exit 1
+    fi
+}
+
 # Install tmux (terminal multiplexer)
-if ! command -v tmux &> /dev/null; then
-    echo "Installing tmux..."
-    sudo apt-get update && sudo apt-get install -y tmux
-    echo "tmux installed successfully"
-else
-    echo "tmux is already installed"
-fi
+install_apt_package "tmux" "tmux"
 
 # Install uv (fast Python package manager)
 if ! command -v uv &> /dev/null; then
@@ -87,22 +105,10 @@ else
 fi
 
 # Install ripgrep
-if ! command -v rg &> /dev/null; then
-    echo "Installing ripgrep..."
-    sudo apt-get update && sudo apt-get install -y ripgrep
-    echo "ripgrep installed successfully"
-else
-    echo "ripgrep is already installed"
-fi
+install_apt_package "ripgrep" "rg"
 
 # Install Vim
-if ! command -v vim &> /dev/null; then
-    echo "Installing Vim..."
-    sudo apt-get update && sudo apt-get install -y vim
-    echo "Vim installed successfully"
-else
-    echo "Vim is already installed"
-fi
+install_apt_package "vim" "vim"
 
 # Configure Vim defaults
 ESC=$'\033'
