@@ -16,10 +16,21 @@ fi
 # This avoids permission issues with the system nvm installation
 NPM_GLOBAL_DIR="$HOME/.npm-global"
 mkdir -p "$NPM_GLOBAL_DIR"
-npm config set prefix "$NPM_GLOBAL_DIR"
+
+# Remove npm user-config values that conflict with nvm, then use env vars instead
+if [ -f "$HOME/.npmrc" ]; then
+    sed -i '/^prefix\s*=\s*/d;/^globalconfig\s*=\s*/d' "$HOME/.npmrc"
+fi
+
+# nvm recommends deleting prefix when present to avoid npm/nvm conflicts
+if command -v nvm &> /dev/null; then
+    nvm use --delete-prefix --silent >/dev/null 2>&1 || true
+fi
+
+export NPM_CONFIG_PREFIX="$NPM_GLOBAL_DIR"
 export PATH="$NPM_GLOBAL_DIR/bin:$PATH"
 
-# Persist the PATH for future shell sessions
+# Persist npm global bin PATH for future shell sessions
 if ! grep -q 'npm-global' "$HOME/.bashrc" 2>/dev/null; then
     echo 'export PATH="$HOME/.npm-global/bin:$PATH"' >> "$HOME/.bashrc"
 fi
