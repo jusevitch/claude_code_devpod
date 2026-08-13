@@ -1,3 +1,9 @@
+> [!WARNING]
+> This template is now deprecated.
+> A newer version can be found in the following repository:
+>
+> https://github.com/jusevitch/agent_devcontainer
+
 # AI Coding Agents DevPod Template
 
 Run AI coding agents safely inside Docker containers using DevPod.
